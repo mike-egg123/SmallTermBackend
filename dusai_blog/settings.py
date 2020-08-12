@@ -143,19 +143,6 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
-# SMTP服务器，改为你的邮箱的smtp!
-EMAIL_HOST = 'smtp.163.com'
-# 改为你自己的邮箱名！
-EMAIL_HOST_USER = 'qrn20000312@163.com'
-# 你的邮箱密码（网易邮箱的话是要smtp专属授权码）
-EMAIL_HOST_PASSWORD = 'BYOKYGEFEWTEYEUH'
-# 发送邮件的端口
-EMAIL_PORT = 25
-# 是否使用 TLS
-EMAIL_USE_TLS = True
-# 默认的发件人
-DEFAULT_FROM_EMAIL = '丘瑞南的博客 <qrn20000312@163.com>'
-
 # 媒体文件夹
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
