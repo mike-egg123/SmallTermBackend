@@ -1,0 +1,470 @@
+Watching for file changes with StatReloader
+Waiting for apps ready_event.
+Apps ready_event triggered. Sending autoreload_started signal.
+Watching dir E:\django_project\dusai_blog\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\contrib\admin\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\contrib\auth\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\contrib\contenttypes\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\contrib\sessions\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\contrib\messages\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\contrib\staticfiles\locale with glob **/*.mo.
+Watching dir E:\django_project\dusai_blog\article\locale with glob **/*.mo.
+Watching dir E:\django_project\dusai_blog\userprofile\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\password_reset\locale with glob **/*.mo.
+Watching dir E:\django_project\dusai_blog\comment\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\taggit\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\ckeditor\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\mptt\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\notifications\locale with glob **/*.mo.
+Watching dir E:\django_project\dusai_blog\notice\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\contrib\sites\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\allauth\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\allauth\account\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\allauth\socialaccount\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\allauth\socialaccount\providers\github\locale with glob **/*.mo.
+Watching dir E:\DjangoProjectEnv\forLearning\env\lib\site-packages\allauth\socialaccount\providers\weibo\locale with glob **/*.mo.
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) SELECT COUNT(*) AS "__count" FROM "article_articlepost"; args=()
+(0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2020-08-07 10:29:16.183363' AND "django_session"."session_key" = 'pv8rpxzzgoi5dlz6spzz45y8s3csf175'); args=('2020-08-07 10:29:16.183363', 'pv8rpxzzgoi5dlz6spzz45y8s3csf175')
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 11; args=(11,)
+(0.001) SELECT COUNT(*) AS "__count" FROM "notifications_notification" WHERE ("notifications_notification"."recipient_id" = 11 AND "notifications_notification"."unread" = 1); args=(11, True)
+(0.001) SELECT "article_articlepost"."id", "article_articlepost"."author_id", "article_articlepost"."column_id", "article_articlepost"."title", "article_articlepost"."avatar", "article_articlepost"."body", "article_articlepost"."created", "article_articlepost"."updated", "article_articlepost"."total_views" FROM "article_articlepost" ORDER BY "article_articlepost"."created" DESC  LIMIT 3; args=()
+(0.001) SELECT "article_articlecolumn"."id", "article_articlecolumn"."title", "article_articlecolumn"."created" FROM "article_articlecolumn" WHERE "article_articlecolumn"."id" = 3; args=(3,)
+(0.000) SELECT DISTINCT "taggit_tag"."id", "taggit_tag"."name", "taggit_tag"."slug" FROM "taggit_tag" INNER JOIN "taggit_taggeditem" ON ("taggit_tag"."id" = "taggit_taggeditem"."tag_id") INNER JOIN "django_content_type" ON ("taggit_taggeditem"."content_type_id" = "django_content_type"."id") WHERE ("django_content_type"."app_label" = 'article' AND "django_content_type"."model" = 'articlepost' AND "taggit_taggeditem"."object_id" = 28); args=('article', 'articlepost', 28)
+(0.001) SELECT COUNT(*) AS "__count" FROM "comment_comment" WHERE "comment_comment"."article_id" = 28; args=(28,)
+(0.000) SELECT "article_articlecolumn"."id", "article_articlecolumn"."title", "article_articlecolumn"."created" FROM "article_articlecolumn" WHERE "article_articlecolumn"."id" = 1; args=(1,)
+(0.000) SELECT DISTINCT "taggit_tag"."id", "taggit_tag"."name", "taggit_tag"."slug" FROM "taggit_tag" INNER JOIN "taggit_taggeditem" ON ("taggit_tag"."id" = "taggit_taggeditem"."tag_id") INNER JOIN "django_content_type" ON ("taggit_taggeditem"."content_type_id" = "django_content_type"."id") WHERE ("django_content_type"."app_label" = 'article' AND "django_content_type"."model" = 'articlepost' AND "taggit_taggeditem"."object_id" = 26); args=('article', 'articlepost', 26)
+(0.000) SELECT COUNT(*) AS "__count" FROM "comment_comment" WHERE "comment_comment"."article_id" = 26; args=(26,)
+(0.000) SELECT "article_articlecolumn"."id", "article_articlecolumn"."title", "article_articlecolumn"."created" FROM "article_articlecolumn" WHERE "article_articlecolumn"."id" = 3; args=(3,)
+(0.000) SELECT DISTINCT "taggit_tag"."id", "taggit_tag"."name", "taggit_tag"."slug" FROM "taggit_tag" INNER JOIN "taggit_taggeditem" ON ("taggit_tag"."id" = "taggit_taggeditem"."tag_id") INNER JOIN "django_content_type" ON ("taggit_taggeditem"."content_type_id" = "django_content_type"."id") WHERE ("django_content_type"."app_label" = 'article' AND "django_content_type"."model" = 'articlepost' AND "taggit_taggeditem"."object_id" = 25); args=('article', 'articlepost', 25)
+(0.000) SELECT COUNT(*) AS "__count" FROM "comment_comment" WHERE "comment_comment"."article_id" = 25; args=(25,)
+"GET / HTTP/1.1" 200 14567
+"GET /static/md_css/default.css HTTP/1.1" 304 0
+"GET /static/jquery/jquery-3.5.1.js HTTP/1.1" 304 0
+"GET /media/article/20200806/20200321.jpg HTTP/1.1" 304 0
+"GET /media/article/20200805/20200615_0AzIeZ4.jpg HTTP/1.1" 304 0
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <URLPattern list> (admin:admin) 'admin/'>
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\core\handlers\base.py", line 100, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\urls\resolvers.py", line 558, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern '' [name='home']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'article.urls' from 'E:\\django_project\\dusai_blog\\article\\urls.py'> (article:article) 'article/'>], [<URLResolver <module 'userprofile.urls' from 'E:\\django_project\\dusai_blog\\userprofile\\urls.py'> (userprofile:userprofile) 'userprofile/'>], [<URLResolver <module 'password_reset.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\password_reset\\urls.py'> (None:None) 'password-reset/'>], [<URLResolver <module 'comment.urls' from 'E:\\django_project\\dusai_blog\\comment\\urls.py'> (comment:comment) 'comment/'>], [<URLResolver <module 'notifications.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\notifications\\urls.py'> (notifications:notifications) 'inbox/notifications/'>], [<URLResolver <module 'notice.urls' from 'E:\\django_project\\dusai_blog\\notice\\urls.py'> (notice:notice) 'notice/'>], [<URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>], [<URLPattern '^media/(?P<path>.*)$'>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\DjangoProjectEnv\forLearning\env\lib\site-packages\django\template\base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'allauth.urls' from 'E:\\DjangoProjectEnv\\forLearning\\env\\lib\\site-packages\\allauth\\urls.py'> (None:None) 'accounts/'>
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2994
+(0.001) SELECT "article_articlepost"."id", "article_articlepost"."author_id", "article_articlepost"."column_id", "article_articlepost"."title", "article_articlepost"."avatar", "article_articlepost"."body", "article_articlepost"."created", "article_articlepost"."updated", "article_articlepost"."total_views" FROM "article_articlepost" WHERE "article_articlepost"."id" = 28; args=(28,)
+(0.011) UPDATE "article_articlepost" SET "total_views" = 46 WHERE "article_articlepost"."id" = 28; args=(46, 28)
+(0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2020-08-07 10:29:20.108682' AND "django_session"."session_key" = 'pv8rpxzzgoi5dlz6spzz45y8s3csf175'); args=('2020-08-07 10:29:20.108682', 'pv8rpxzzgoi5dlz6spzz45y8s3csf175')
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 11; args=(11,)
+(0.000) SELECT COUNT(*) AS "__count" FROM "notifications_notification" WHERE ("notifications_notification"."recipient_id" = 11 AND "notifications_notification"."unread" = 1); args=(11, True)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT COUNT(*) AS "__count" FROM "comment_comment" WHERE "comment_comment"."article_id" = 28; args=(28,)
+(0.000) SELECT "comment_comment"."id", "comment_comment"."article_id", "comment_comment"."user_id", "comment_comment"."body", "comment_comment"."created", "comment_comment"."parent_id", "comment_comment"."reply_to_id", "comment_comment"."lft", "comment_comment"."rght", "comment_comment"."tree_id", "comment_comment"."level" FROM "comment_comment" WHERE "comment_comment"."article_id" = 28 ORDER BY "comment_comment"."tree_id" ASC, "comment_comment"."lft" ASC; args=(28,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+"GET /article/article-detail/28/ HTTP/1.1" 200 65052
+"GET /static/prism/prism.css HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor-init.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/ckeditor.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/smiley/images/angry_smile.png HTTP/1.1" 304 0
+"GET /static/sticky_sidebar/jquery.sticky-sidebar.min.js HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/config.js?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/skins/moono-lisa/editor.css?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/lang/zh-cn.js?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/styles.js?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/codesnippet/plugin.js?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/tableselection/styles/tableselection.css HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/scayt/dialogs/dialog.css?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/codesnippet/lang/zh-cn.js?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/dialog/styles/dialog.css HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/skins/moono-lisa/icons.png?t=411985373e HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/plugins/codesnippet/icons/codesnippet.png?t=JB9C HTTP/1.1" 304 0
+"GET /static/ckeditor/ckeditor/contents.css?t=JB9C HTTP/1.1" 304 0
+(0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2020-08-07 10:29:31.318923' AND "django_session"."session_key" = 'pv8rpxzzgoi5dlz6spzz45y8s3csf175'); args=('2020-08-07 10:29:31.318923', 'pv8rpxzzgoi5dlz6spzz45y8s3csf175')
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 11; args=(11,)
+(0.000) SELECT "article_articlepost"."id", "article_articlepost"."author_id", "article_articlepost"."column_id", "article_articlepost"."title", "article_articlepost"."avatar", "article_articlepost"."body", "article_articlepost"."created", "article_articlepost"."updated", "article_articlepost"."total_views" FROM "article_articlepost" WHERE "article_articlepost"."id" = 28; args=(28,)
+(0.000) SELECT "comment_comment"."id", "comment_comment"."article_id", "comment_comment"."user_id", "comment_comment"."body", "comment_comment"."created", "comment_comment"."parent_id", "comment_comment"."reply_to_id", "comment_comment"."lft", "comment_comment"."rght", "comment_comment"."tree_id", "comment_comment"."level" FROM "comment_comment" WHERE ("comment_comment"."created" > '2020-08-07 10:29:31.322912' AND "comment_comment"."parent_id" IS NULL) ORDER BY "comment_comment"."created" ASC, "comment_comment"."tree_id" ASC  LIMIT 1; args=('2020-08-07 10:29:31.322912',)
+(0.000) SELECT MAX("comment_comment"."tree_id") AS "tree_id__max" FROM "comment_comment"; args=()
+(0.010) INSERT INTO "comment_comment" ("article_id", "user_id", "body", "created", "parent_id", "reply_to_id", "lft", "rght", "tree_id", "level") VALUES (28, 11, '<p>哈喽妈的法克</p>', '2020-08-07 10:29:31.324911', NULL, NULL, 1, 2, 15, 0); args=[28, 11, '<p>哈喽妈的法克</p>', '2020-08-07 10:29:31.324911', None, None, 1, 2, 15, 0]
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" = 'user'); args=('auth', 'user')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'article' AND "django_content_type"."model" = 'articlepost'); args=('article', 'articlepost')
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'comment' AND "django_content_type"."model" = 'comment'); args=('comment', 'comment')
+(0.012) INSERT INTO "notifications_notification" ("level", "recipient_id", "unread", "actor_content_type_id", "actor_object_id", "verb", "description", "target_content_type_id", "target_object_id", "action_object_content_type_id", "action_object_object_id", "timestamp", "public", "deleted", "emailed", "data") VALUES ('info', 8, 1, 4, '11', '评论了你', NULL, 7, '28', 9, '32', '2020-08-07 10:29:31.337871', 1, 0, 0, NULL); args=['info', 8, True, 4, '11', '评论了你', None, 7, '28', 9, '32', '2020-08-07 10:29:31.337871', True, False, False, None]
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."is_superuser" = 1; args=(True,)
+(0.010) INSERT INTO "notifications_notification" ("level", "recipient_id", "unread", "actor_content_type_id", "actor_object_id", "verb", "description", "target_content_type_id", "target_object_id", "action_object_content_type_id", "action_object_object_id", "timestamp", "public", "deleted", "emailed", "data") VALUES ('info', 7, 1, 4, '11', '评论了丘瑞南', NULL, 7, '28', 9, '32', '2020-08-07 10:29:31.351834', 1, 0, 0, NULL); args=['info', 7, True, 4, '11', '评论了丘瑞南', None, 7, '28', 9, '32', '2020-08-07 10:29:31.351834', True, False, False, None]
+"POST /comment/post-comment/28/ HTTP/1.1" 302 0
+(0.000) SELECT "article_articlepost"."id", "article_articlepost"."author_id", "article_articlepost"."column_id", "article_articlepost"."title", "article_articlepost"."avatar", "article_articlepost"."body", "article_articlepost"."created", "article_articlepost"."updated", "article_articlepost"."total_views" FROM "article_articlepost" WHERE "article_articlepost"."id" = 28; args=(28,)
+(0.009) UPDATE "article_articlepost" SET "total_views" = 47 WHERE "article_articlepost"."id" = 28; args=(47, 28)
+(0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2020-08-07 10:29:31.401746' AND "django_session"."session_key" = 'pv8rpxzzgoi5dlz6spzz45y8s3csf175'); args=('2020-08-07 10:29:31.401746', 'pv8rpxzzgoi5dlz6spzz45y8s3csf175')
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 11; args=(11,)
+(0.000) SELECT COUNT(*) AS "__count" FROM "notifications_notification" WHERE ("notifications_notification"."recipient_id" = 11 AND "notifications_notification"."unread" = 1); args=(11, True)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT COUNT(*) AS "__count" FROM "comment_comment" WHERE "comment_comment"."article_id" = 28; args=(28,)
+(0.001) SELECT "comment_comment"."id", "comment_comment"."article_id", "comment_comment"."user_id", "comment_comment"."body", "comment_comment"."created", "comment_comment"."parent_id", "comment_comment"."reply_to_id", "comment_comment"."lft", "comment_comment"."rght", "comment_comment"."tree_id", "comment_comment"."level" FROM "comment_comment" WHERE "comment_comment"."article_id" = 28 ORDER BY "comment_comment"."tree_id" ASC, "comment_comment"."lft" ASC; args=(28,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.001) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 7; args=(7,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 8; args=(8,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 9; args=(9,)
+(0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 11; args=(11,)
+"GET /article/article-detail/28/ HTTP/1.1" 200 67488
+File E:\django_project\dusai_blog\dusai_blog\settings.py. is_changed: False, is_new: True
+File E:\django_project\dusai_blog\dusai_blog\settings.py previous mtime: None, current mtime: 1596767433.108074
+E:\django_project\dusai_blog\dusai_blog\settings.py notified as changed. Signal results: [(<function translation_file_changed at 0x000001C00464E820>, None)].
+E:\django_project\dusai_blog\dusai_blog\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /article/article-detail/28/ HTTP/1.1" 200 67488
+"GET /article/article-detail/28/ HTTP/1.1" 200 67488
+"GET /article/article-detail/28/ HTTP/1.1" 200 67488
+"GET /article/article-detail/9999/ HTTP/1.1" 500 59
+E:\django_project\dusai_blog\dusai_blog\settings.py changed, reloading.
+"GET /article/article-detail/9999/ HTTP/1.1" 500 59
+Watching for file changes with StatReloader
+Not Found: /article/article-detail/9999/
+"GET /article/article-detail/9999/ HTTP/1.1" 404 1780
+E:\django_project\dusai_blog\dusai_blog\settings.py changed, reloading.
+WARNING 2020-08-07 15:50:34,187 log 12792 35976 Not Found: /favicon.ico
