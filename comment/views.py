@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -8,9 +10,10 @@ from django.http import JsonResponse
 from article.models import ArticlePost
 from .forms import CommentForm
 from .models import Comment
+from django.core import serializers
 
 # Create your views here.
-
+# 这里别看！
 # 文章评论
 @login_required(login_url = '/userprofile/login/')
 def post_comment(request, article_id, parent_comment_id = None):
@@ -82,3 +85,46 @@ def post_comment(request, article_id, parent_comment_id = None):
         return render(request, 'comment/reply.html', context)
     else:
         return HttpResponse('仅接受get/post请求')
+# 这里开始！
+class CommentViews:
+    # 发表评论
+    @staticmethod
+    def post(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            userid = data.get('userid')
+            content = data.get('content')
+            comment = Comment.objects.create(article_id=articleid, user_id=userid, body=content)
+            comment.save()
+            return JsonResponse({
+                "status":0,
+                "message":"success"
+            })
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })
+    # 获取对应文章的所有评论
+    @staticmethod
+    def get_comments_by_articleid(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            comments = Comment.objects.filter(article_id=articleid)
+            json_list = []
+            i = 1
+            for comment in comments:
+                json_dict = {}
+                json_dict["content" + str(i)] = comment.body
+                json_list.append(json_dict)
+                i += 1
+            json_list.append({"total":str(i)})
+            json_data = json.dumps(json_list)
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })

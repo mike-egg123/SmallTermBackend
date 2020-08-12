@@ -9,7 +9,7 @@ from .models import Profile
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+# 这些都没用！不要看！
 # 登录
 def user_login(request):
     if request.method == 'POST':
@@ -109,7 +109,7 @@ def profile_edit(request, id):
     else:
         return HttpResponse('请使用POST或者GET请求数据')
 
-
+# 从这里开始才是
 from .forms import ProfileForm
 from .models import Profile
 
@@ -133,7 +133,7 @@ class Users:
                 "status": 0,
                 "username": str(request.user),
                 "email": str(request.user.email),
-                "id":str(request.user.id),
+                "userid":str(request.user.id),
                 "phone":str(userprofile.phone),
                 "bio":str(userprofile.bio),
                 "avatar": avatar
@@ -170,7 +170,7 @@ class Users:
                         "username": username,
                         "password":password,
                         "email": str(request.user.email),
-                        "id": str(request.user.id),
+                        "userid": str(request.user.id),
                         "phone": str(userprofile.phone),
                         "bio": str(userprofile.bio),
                         "avatar": avatar
@@ -296,7 +296,7 @@ class Personality:
     def get_personality(request):
         if request.method == 'POST':
             data = json.loads(request.body)
-            user_id = data.get('id')
+            user_id = data.get('userid')
             user = User.objects.get(id=user_id)
             # userprofile = Profile.objects.get(user_id = user_id)
             if Profile.objects.filter(user_id = user_id).exists():

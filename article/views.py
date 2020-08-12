@@ -15,7 +15,7 @@ from comment.models import Comment
 from comment.forms import CommentForm
 
 # Create your views here.
-
+# 这里别看！
 # 文章列表
 def article_list(request):
     search = request.GET.get('search')
@@ -193,6 +193,7 @@ class IncreaseLikesView(View):
         article.save()
         return HttpResponse('success')
 
+# 从这里开始才是
 class Article:
     # 文档的创建
     @staticmethod
@@ -206,7 +207,7 @@ class Article:
             articlepost.save()
             return JsonResponse({
                 "status":0,
-                "article_id":articlepost.id
+                "articleid":articlepost.id
             })
         else:
             return JsonResponse({
@@ -229,7 +230,7 @@ class Article:
             articlepost.save()
             return JsonResponse({
                 "status": 0,
-                "article_id": articlepost.id
+                "articleid": articlepost.id
             })
         else:
             return JsonResponse({

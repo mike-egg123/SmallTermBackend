@@ -21,6 +21,8 @@ import notifications.urls
 from article.views import article_list
 from userprofile.views import Users, Personality
 from article.views import Article
+from comment.views import CommentViews
+from workplace.views import Workplace
 
 urlpatterns = [
     # home
@@ -41,6 +43,7 @@ urlpatterns = [
     path('notice/', include('notice.urls', namespace = 'notice')),
     # 第三方登录
     path('accounts/', include('allauth.urls')),
+    path('apis/workplace/', include('workplace.urls')),  # 个人工作平台
     path('apis/user/getstatus', Users.get_status),  # 返回状态 是否登录
     path('apis/user/login', Users.login_user),  # 登录
     path('apis/user/logout', Users.logout_user),  # 注销
@@ -50,8 +53,9 @@ urlpatterns = [
     path('apis/article/create', Article.article_create), # 文档的创建
     path('apis/article/update', Article.article_update),  # 文档的修改
     path('apis/article/get', Article.article_get),  # 文档的修改
-    path('apis/article/delete', Article.article_remove),  # 文档的修改
-
+    path('apis/article/delete', Article.article_remove),  # 文档的删除
+    path('apis/comment/post', CommentViews.post),  # 发表评论
+    path('apis/comment/getbyarticleid', CommentViews.get_comments_by_articleid),  # 获得对应文档的评论
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
