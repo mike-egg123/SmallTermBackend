@@ -13,6 +13,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from comment.models import Comment
 from comment.forms import CommentForm
+from .models import Like
 
 # Create your views here.
 # 这里别看！
@@ -250,6 +251,7 @@ class Article:
             created = article.created
             last_updater = User.objects.get(id = article.last_updater).username
             update_time = article.updated
+            is_in_garbage = article.is_in_garbage
             return JsonResponse({
                 "status":0,
                 "title":title,
@@ -257,28 +259,87 @@ class Article:
                 "author":author.username,
                 "created_time":created,
                 "last_updater":last_updater,
-                "updated_time":update_time
+                "updated_time":update_time,
+                "is_in_garbage":is_in_garbage
             })
         else:
             return JsonResponse({
                 "status":1,
                 "message":"error method"
             })
-    # 文档删除
+    # 文档删除，根据实际情况进行进入回收站或者彻底删除
     @staticmethod
     def article_remove(request):
         if request.method == 'POST':
             data = json.loads(request.body)
             articleid = data.get('articleid')
             article = ArticlePost.objects.get(id = articleid)
-            article.delete()
+            if article.is_in_garbage:
+                article.delete()
+                return JsonResponse({
+                    "status":0,
+                    "message":"彻底删除"
+                })
+            else:
+                article.is_in_garbage = True
+                article.save()
+                return JsonResponse({
+                    "status":0,
+                    "message":"移入回收站"
+                })
+        else:
             return JsonResponse({
-                "status":0
+                "status":1,
+                "message":"error method"
+            })
+    # 文档恢复
+    @staticmethod
+    def article_recover(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            article = ArticlePost.objects.get(id = articleid)
+            article.is_in_garbage = False
+            article.save()
+            return JsonResponse({
+                "status":0,
+                "message":"success"
             })
         else:
             return JsonResponse({
-                "status":1
+                "status":1,
+                "message":"error method"
             })
+
+    # 文档收藏或取消收藏
+    @staticmethod
+    def article_like(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            userid = data.get('userid')
+            articleid = data.get('articleid')
+            is_like = data.get('islike')
+            if is_like == 0:
+                likes = Like.objects.filter(liker_id = userid, liked_id = articleid)
+                for like in likes:
+                    like.delete()
+                return JsonResponse({
+                    "status":0,
+                    "message":"dislike success"
+                })
+            else:
+                like = Like.objects.create(liker_id = userid, liked_id = articleid)
+                like.save()
+                return JsonResponse({
+                    "status": 0,
+                    "message": str(like)
+                })
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })
+
 
 
 

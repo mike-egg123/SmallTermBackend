@@ -153,8 +153,8 @@ class Users:
             print(password)
             if username is not None and password is not None:
                 islogin = authenticate(request, username=username, password=password)
-                user_id = islogin.id
                 if islogin:
+                    user_id = islogin.id
                     login(request, islogin)
                     if Profile.objects.filter(user_id=user_id).exists():
                         userprofile = Profile.objects.get(user_id=user_id)
@@ -262,7 +262,7 @@ class Personality:
                     avatar = profile_cd['avatar']
                 # 验证修改数据者是否为用户本人
                 else:
-                    avatar = ''
+                    avatar = profile.avatar
                 if False:
                     return JsonResponse({
                         "status":1,

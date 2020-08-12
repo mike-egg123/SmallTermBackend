@@ -54,6 +54,8 @@ urlpatterns = [
     path('apis/article/update', Article.article_update),  # 文档的修改
     path('apis/article/get', Article.article_get),  # 文档的修改
     path('apis/article/delete', Article.article_remove),  # 文档的删除
+    path('apis/article/recover', Article.article_recover),  # 文档的恢复（从回收站）
+    path('apis/article/likeornot', Article.article_like),  # 文档的恢复（从回收站）
     path('apis/comment/post', CommentViews.post),  # 发表评论
     path('apis/comment/getbyarticleid', CommentViews.get_comments_by_articleid),  # 获得对应文档的评论
 ]

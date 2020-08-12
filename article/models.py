@@ -28,6 +28,8 @@ class ArticlePost(models.Model):
     last_updater = models.CharField(max_length = 10, blank = True)
     # 更新时间，参数表示每次数据更新时自动写入当前时间
     updated = models.DateTimeField(auto_now = True)
+    # 是否在回收站
+    is_in_garbage = models.BooleanField(default = False)
 
 
     class Meta:
@@ -41,4 +43,11 @@ class ArticlePost(models.Model):
     # 获取文章地址
     def get_absolute_url(self):
         return reverse('article:article_detail', args = [self.id])
+
+class Like(models.Model):
+    liker = models.ForeignKey(User, on_delete = models.CASCADE)
+    liked = models.ForeignKey(ArticlePost, on_delete = models.CASCADE)
+    def __str__(self):
+        return self.liker.username + " likes " + self.liked.title
+
 
