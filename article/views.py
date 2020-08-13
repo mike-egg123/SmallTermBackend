@@ -13,7 +13,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from comment.models import Comment
 from comment.forms import CommentForm
-from .models import Like
+from .models import Like, WatchingRecord
 
 # Create your views here.
 # 这里别看！
@@ -204,7 +204,8 @@ class Article:
             title = data.get('title')
             content = data.get('content')
             userid = data.get('userid')
-            articlepost = ArticlePost.objects.create(author_id = userid, title = title, body = content, last_updater = userid)
+            permission = data.get('permission')
+            articlepost = ArticlePost.objects.create(author_id = userid, title = title, body = content, last_updater = userid, permission = permission)
             articlepost.save()
             return JsonResponse({
                 "status":0,
@@ -224,10 +225,12 @@ class Article:
             userid = data.get('userid')
             title = data.get('title')
             content = data.get('content')
+            permission = data.get('permission')
             articlepost = ArticlePost.objects.get(id = articleid)
             articlepost.title = title
             articlepost.body = content
             articlepost.last_updater = userid
+            articlepost.permission = permission
             articlepost.save()
             return JsonResponse({
                 "status": 0,
@@ -238,12 +241,32 @@ class Article:
                 "status": 1,
                 "message": "error method"
             })
+    # 更改文档的修改状态
+    @staticmethod
+    def change_updating(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            updatingcode = data.get('updatingcode')
+            articleid = data.get('articleid')
+            article = ArticlePost.objects.get(id = articleid)
+            article.is_updating = updatingcode
+            article.save()
+            return JsonResponse({
+                "status":0,
+                "message":"updatingcode now is " + str(updatingcode)
+            })
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })
     # 文档查看
     @staticmethod
     def article_get(request):
         if request.method == 'POST':
             data = json.loads(request.body)
             articleid = data.get('articleid')
+            userid = data.get('userid')
             article = ArticlePost.objects.get(id = articleid)
             title = article.title
             content = article.body
@@ -252,6 +275,10 @@ class Article:
             last_updater = User.objects.get(id = article.last_updater).username
             update_time = article.updated
             is_in_garbage = article.is_in_garbage
+            permission = article.permission
+            updatingcode = article.is_updating
+            watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
+            watchingrecord.save()
             return JsonResponse({
                 "status":0,
                 "title":title,
@@ -260,7 +287,9 @@ class Article:
                 "created_time":created,
                 "last_updater":last_updater,
                 "updated_time":update_time,
-                "is_in_garbage":is_in_garbage
+                "is_in_garbage":is_in_garbage,
+                "permission":permission,
+                "updatingcode":updatingcode
             })
         else:
             return JsonResponse({
@@ -340,6 +369,99 @@ class Article:
                 "message":"error method"
             })
 
+    # 获取最近浏览
+    @staticmethod
+    def get_recent_watch(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            userid = data.get('userid')
+            watchingrecords = WatchingRecord.objects.filter(user_id = userid)
+            json_list = []
+            i = 0
+            for watchingrecord in watchingrecords:
+                json_dict = {}
+                articleid = watchingrecord.article_id
+                article = ArticlePost.objects.get(id = articleid)
+                json_dict["articleid" + str(i)] = articleid
+                json_dict["title" + str(i)] = article.title
+                json_list.append(json_dict)
+                i += 1
+            json_list.append({"total": str(i)})
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })
+    # 获取所有收藏
+    @staticmethod
+    def get_all_likes(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            userid = data.get('userid')
+            likes = Like.objects.filter(liker_id = userid)
+            json_list = []
+            i = 0
+            for like in likes:
+                json_dict = {}
+                articleid = like.liked_id
+                article = ArticlePost.objects.get(id=articleid)
+                json_dict["articleid" + str(i)] = articleid
+                json_dict["title" + str(i)] = article.title
+                json_list.append(json_dict)
+                i += 1
+            json_list.append({"total": str(i)})
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })
+    # 获取所有创建的文档
+    @staticmethod
+    def get_all_creations(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            userid = data.get('userid')
+            articles = ArticlePost.objects.filter(author_id = userid)
+            json_list = []
+            i = 0
+            for article in articles:
+                json_dict = {}
+                json_dict["articleid" + str(i)] = article.id
+                json_dict["title" + str(i)] = article.title
+                json_list.append(json_dict)
+                i += 1
+            json_list.append({"total": str(i)})
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })
+    # 获取所有回收站里的文档
+    @staticmethod
+    def get_all_creations_in_garbage(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            userid = data.get('userid')
+            articles = ArticlePost.objects.filter(author_id=userid)
+            json_list = []
+            i = 0
+            for article in articles:
+                json_dict = {}
+                if article.is_in_garbage:
+                    json_dict["articleid" + str(i)] = article.id
+                    json_dict["title" + str(i)] = article.title
+                    json_list.append(json_dict)
+                    i += 1
+            json_list.append({"total": str(i)})
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
+            })
 
 
 

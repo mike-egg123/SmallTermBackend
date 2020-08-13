@@ -52,10 +52,15 @@ urlpatterns = [
     path('apis/personality/get', Personality.get_personality), # 得到用户信息
     path('apis/article/create', Article.article_create), # 文档的创建
     path('apis/article/update', Article.article_update),  # 文档的修改
-    path('apis/article/get', Article.article_get),  # 文档的修改
+    path('apis/article/get', Article.article_get),  # 文档的查看
     path('apis/article/delete', Article.article_remove),  # 文档的删除
     path('apis/article/recover', Article.article_recover),  # 文档的恢复（从回收站）
-    path('apis/article/likeornot', Article.article_like),  # 文档的恢复（从回收站）
+    path('apis/article/likeornot', Article.article_like),  # 文档的收藏
+    path('apis/article/updatingcodechange', Article.change_updating),  # 文档的修改状态的改变
+    path('apis/article/getrecentwatch', Article.get_recent_watch),  # 获取最近浏览
+    path('apis/article/getalllikes', Article.get_all_likes),  # 获取所有收藏
+    path('apis/article/getallcreations', Article.get_all_creations),  # 获取所有创建的文档
+    path('apis/article/getallcreationsingarbage', Article.get_all_creations_in_garbage),  # 获取回收站中的所有文档
     path('apis/comment/post', CommentViews.post),  # 发表评论
     path('apis/comment/getbyarticleid', CommentViews.get_comments_by_articleid),  # 获得对应文档的评论
 ]

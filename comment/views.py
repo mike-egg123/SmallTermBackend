@@ -114,7 +114,7 @@ class CommentViews:
             articleid = data.get('articleid')
             comments = Comment.objects.filter(article_id=articleid)
             json_list = []
-            i = 1
+            i = 0
             for comment in comments:
                 json_dict = {}
                 json_dict["content" + str(i)] = comment.body

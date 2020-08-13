@@ -30,6 +30,10 @@ class ArticlePost(models.Model):
     updated = models.DateTimeField(auto_now = True)
     # 是否在回收站
     is_in_garbage = models.BooleanField(default = False)
+    # 文档权限
+    permission = models.IntegerField(default = 0)
+    # 是否正在被修改
+    is_updating = models.IntegerField(default = 0)
 
 
     class Meta:
@@ -49,5 +53,15 @@ class Like(models.Model):
     liked = models.ForeignKey(ArticlePost, on_delete = models.CASCADE)
     def __str__(self):
         return self.liker.username + " likes " + self.liked.title
+
+class WatchingRecord(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    article = models.ForeignKey(ArticlePost, on_delete = models.CASCADE)
+    record_date = models.DateTimeField(default=timezone.now)
+    class Meta:
+        ordering = ("-record_date",)
+    def __str__(self):
+        return self.user + "于" + self.record_date + "修改了" + self.article
+
 
 
