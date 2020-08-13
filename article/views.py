@@ -348,7 +348,7 @@ class Article:
             userid = data.get('userid')
             articleid = data.get('articleid')
             is_like = data.get('islike')
-            if is_like == 0:
+            if is_like == False:
                 likes = Like.objects.filter(liker_id = userid, liked_id = articleid)
                 for like in likes:
                     like.delete()
@@ -357,12 +357,19 @@ class Article:
                     "message":"dislike success"
                 })
             else:
-                like = Like.objects.create(liker_id = userid, liked_id = articleid)
-                like.save()
-                return JsonResponse({
-                    "status": 0,
-                    "message": str(like)
-                })
+                if Like.objects.filter(liker_id = userid, liked_id = articleid):
+                    return JsonResponse({
+                        "status":2,
+                        "isrepeat":True
+                    })
+                else:
+                    like = Like.objects.create(liker_id = userid, liked_id = articleid)
+                    like.save()
+                    return JsonResponse({
+                        "status": 0,
+                        "message": str(like),
+                        "isrepeat":False
+                    })
         else:
             return JsonResponse({
                 "status":1,
@@ -377,16 +384,17 @@ class Article:
             userid = data.get('userid')
             watchingrecords = WatchingRecord.objects.filter(user_id = userid)
             json_list = []
-            i = 0
             for watchingrecord in watchingrecords:
                 json_dict = {}
                 articleid = watchingrecord.article_id
                 article = ArticlePost.objects.get(id = articleid)
-                json_dict["articleid" + str(i)] = articleid
-                json_dict["title" + str(i)] = article.title
+                json_dict["articleid"] = articleid
+                json_dict["title"] = article.title
+                if Like.objects.filter(liker_id = userid, liked_id = articleid):
+                    json_dict["islike"] = True
+                else:
+                    json_dict["islike"] = False
                 json_list.append(json_dict)
-                i += 1
-            json_list.append({"total": str(i)})
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -401,16 +409,17 @@ class Article:
             userid = data.get('userid')
             likes = Like.objects.filter(liker_id = userid)
             json_list = []
-            i = 0
             for like in likes:
                 json_dict = {}
                 articleid = like.liked_id
                 article = ArticlePost.objects.get(id=articleid)
-                json_dict["articleid" + str(i)] = articleid
-                json_dict["title" + str(i)] = article.title
+                json_dict["articleid"] = articleid
+                json_dict["title"] = article.title
+                if Like.objects.filter(liker_id = userid, liked_id = articleid):
+                    json_dict["islike"] = True
+                else:
+                    json_dict["islike"] = False
                 json_list.append(json_dict)
-                i += 1
-            json_list.append({"total": str(i)})
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -425,14 +434,16 @@ class Article:
             userid = data.get('userid')
             articles = ArticlePost.objects.filter(author_id = userid)
             json_list = []
-            i = 0
             for article in articles:
                 json_dict = {}
-                json_dict["articleid" + str(i)] = article.id
-                json_dict["title" + str(i)] = article.title
+                json_dict["articleid"] = article.id
+                json_dict["title"] = article.title
+                if Like.objects.filter(liker_id = userid, liked_id = article.id):
+                    json_dict["islike"] = True
+                else:
+                    json_dict["islike"] = False
+                json_dict["isingarbage"] = article.is_in_garbage
                 json_list.append(json_dict)
-                i += 1
-            json_list.append({"total": str(i)})
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -447,15 +458,17 @@ class Article:
             userid = data.get('userid')
             articles = ArticlePost.objects.filter(author_id=userid)
             json_list = []
-            i = 0
             for article in articles:
                 json_dict = {}
                 if article.is_in_garbage:
-                    json_dict["articleid" + str(i)] = article.id
-                    json_dict["title" + str(i)] = article.title
+                    json_dict["articleid"] = article.id
+                    json_dict["title"] = article.title
+                    if Like.objects.filter(liker_id=userid, liked_id=article.id):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_dict["isingarbage"] = article.is_in_garbage
                     json_list.append(json_dict)
-                    i += 1
-            json_list.append({"total": str(i)})
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({

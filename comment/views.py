@@ -114,14 +114,10 @@ class CommentViews:
             articleid = data.get('articleid')
             comments = Comment.objects.filter(article_id=articleid)
             json_list = []
-            i = 0
             for comment in comments:
                 json_dict = {}
-                json_dict["content" + str(i)] = comment.body
+                json_dict["content"] = comment.body
                 json_list.append(json_dict)
-                i += 1
-            json_list.append({"total":str(i)})
-            json_data = json.dumps(json_list)
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
