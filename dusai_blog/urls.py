@@ -46,6 +46,7 @@ urlpatterns = [
     path('apis/workplace/', include('workplace.urls')),  # 个人工作平台
     path('apis/user/getstatus', Users.get_status),  # 返回状态 是否登录
     path('apis/user/login', Users.login_user),  # 登录
+    path('apis/user/getvalidcode', Users.get_valid_img),  # 获取验证码
     path('apis/user/logout', Users.logout_user),  # 注销
     path('apis/user/register', Users.register),  # 注册
     path('apis/personality/change', Personality.change_personality), #修改用户信息

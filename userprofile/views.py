@@ -1,5 +1,8 @@
 import json
+import os
+import random
 
+from PIL import Image, ImageDraw, ImageFont
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -234,6 +237,61 @@ class Users:
                 "status": 1,
                 "message": "error method"
             })
+    # 获取验证码
+    @staticmethod
+    # 获取验证码图片的视图
+    def get_valid_img(request):
+        # 获取随机颜色的函数
+        def get_random_color():
+            return random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
+
+        # 生成一个图片对象
+        img_obj = Image.new(
+            'RGB',
+            (220, 35),
+            get_random_color()
+        )
+        # 在生成的图片上写字符
+        font = ImageFont.truetype('arial.ttf', 30)
+        # 生成一个图片画笔对象
+        draw_obj = ImageDraw.Draw(img_obj)
+        # 开始生成随机字符串并且写到图片上
+        tmp_list = []
+        for i in range(4):
+            u = chr(random.randint(65, 90))  # 生成大写字母
+            l = chr(random.randint(97, 122))  # 生成小写字母
+            n = str(random.randint(0, 9))  # 生成数字，注意要转换成字符串类型
+
+            tmp = random.choice([u, l, n])
+            tmp_list.append(tmp)
+            draw_obj.text((20 + 40 * i, 0), tmp, fill=get_random_color(), font = font)
+
+        print(tmp_list)
+        mystr = ""
+        for s in tmp_list:
+            mystr += s
+        # 加干扰线
+        width = 220  # 图片宽度（防止越界）
+        height = 35
+        for i in range(4):
+            x1 = random.randint(0, width)
+            x2 = random.randint(0, width)
+            y1 = random.randint(0, height)
+            y2 = random.randint(0, height)
+            draw_obj.line((x1, y1, x2, y2), fill=get_random_color())
+
+        # 加干扰点
+        for i in range(40):
+            draw_obj.point((random.randint(0, width), random.randint(0, height)), fill=get_random_color())
+            x = random.randint(0, width)
+            y = random.randint(0, height)
+            draw_obj.arc((x, y, x + 4, y + 4), 0, 90, fill=get_random_color())
+        with open(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+ '/media/checkcode/{}.png'.format(mystr),'wb') as f:
+            img_obj.save(f, format = 'png')
+        return JsonResponse({
+            "url":"http://182.92.239.145" + '/media/checkcode/{}.png'.format(mystr),
+            "code":mystr
+        })
 
 class Personality:
     # 修改与完善用户信息
@@ -325,3 +383,5 @@ class Personality:
                 "status":1,
                 "message":"请使用post请求"
             })
+
+

@@ -385,16 +385,17 @@ class Article:
             watchingrecords = WatchingRecord.objects.filter(user_id = userid)
             json_list = []
             for watchingrecord in watchingrecords:
-                json_dict = {}
                 articleid = watchingrecord.article_id
-                article = ArticlePost.objects.get(id = articleid)
-                json_dict["articleid"] = articleid
-                json_dict["title"] = article.title
-                if Like.objects.filter(liker_id = userid, liked_id = articleid):
-                    json_dict["islike"] = True
-                else:
-                    json_dict["islike"] = False
-                json_list.append(json_dict)
+                article = ArticlePost.objects.get(id=articleid)
+                if article.is_in_garbage == False:
+                    json_dict = {}
+                    json_dict["articleid"] = articleid
+                    json_dict["title"] = article.title
+                    if Like.objects.filter(liker_id = userid, liked_id = articleid):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -410,16 +411,17 @@ class Article:
             likes = Like.objects.filter(liker_id = userid)
             json_list = []
             for like in likes:
-                json_dict = {}
                 articleid = like.liked_id
                 article = ArticlePost.objects.get(id=articleid)
-                json_dict["articleid"] = articleid
-                json_dict["title"] = article.title
-                if Like.objects.filter(liker_id = userid, liked_id = articleid):
-                    json_dict["islike"] = True
-                else:
-                    json_dict["islike"] = False
-                json_list.append(json_dict)
+                if article.is_in_garbage == False:
+                    json_dict = {}
+                    json_dict["articleid"] = articleid
+                    json_dict["title"] = article.title
+                    if Like.objects.filter(liker_id = userid, liked_id = articleid):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -435,15 +437,15 @@ class Article:
             articles = ArticlePost.objects.filter(author_id = userid)
             json_list = []
             for article in articles:
-                json_dict = {}
-                json_dict["articleid"] = article.id
-                json_dict["title"] = article.title
-                if Like.objects.filter(liker_id = userid, liked_id = article.id):
-                    json_dict["islike"] = True
-                else:
-                    json_dict["islike"] = False
-                json_dict["isingarbage"] = article.is_in_garbage
-                json_list.append(json_dict)
+                if article.is_in_garbage == False:
+                    json_dict = {}
+                    json_dict["articleid"] = article.id
+                    json_dict["title"] = article.title
+                    if Like.objects.filter(liker_id = userid, liked_id = article.id):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -467,7 +469,6 @@ class Article:
                         json_dict["islike"] = True
                     else:
                         json_dict["islike"] = False
-                    json_dict["isingarbage"] = article.is_in_garbage
                     json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
