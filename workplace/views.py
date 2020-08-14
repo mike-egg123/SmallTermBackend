@@ -5,14 +5,15 @@ import json
 # Create your views here.
 from workplace.models import *
 from article.models import ArticlePost
+from userprofile.models import Profile
 
 # 修改处：
 # 1、把表Users删了直接替换成django内建的User，不然如果Users表是空的，则无法进行团队的操作，而一开始Users表必然是空的
 # 2、将所有的从前端获取的参数名进行了规范化
 # 3、myteam中向前端多返回一个teamid
 # 4、感觉踢人和退出团队的两个函数一模一样
-# 加入的团队
-def myteam(request):
+# 加入的团队（不包括创建的）
+def myjointeam(request):
     if request.method == "POST":
         data = json.loads(request.body)
         uid = data.get("userid")
@@ -20,10 +21,11 @@ def myteam(request):
         res = usr.user.all()
         reslist = []
         for tm in res:
-            temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
-                   'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
-                    }
-            reslist.append(temp)
+            if tm.tcreateuser != usr:
+                temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
+                       'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
+                        }
+                reslist.append(temp)
         return JsonResponse(reslist, safe = False)
 
     else:
@@ -31,6 +33,29 @@ def myteam(request):
             "status": 0,
             "message": "error method"
         })
+
+# 创建的团队
+def mycreateteam(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        uid = data.get("userid")
+        usr = User.objects.get(id=uid)
+        res = usr.user.all()
+        reslist = []
+        for tm in res:
+            if tm.tcreateuser == usr:
+                temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
+                       'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
+                        }
+                reslist.append(temp)
+        return JsonResponse(reslist, safe = False)
+
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
 
 #创建团队
 def createteam(request):
@@ -162,8 +187,10 @@ def getteammember(request):
         mem_list = []
         for member in members:
             mem_dict = {}
+            profile = Profile.objects.get(user = member)
             mem_dict["userid"] = member.id
             mem_dict["username"] = member.username
+            mem_dict["avatar"] = "http://182.92.239.145" + str(profile.avatar.url)
             mem_list.append(mem_dict)
         return JsonResponse(mem_list, safe = False)
 

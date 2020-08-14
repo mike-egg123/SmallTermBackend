@@ -116,7 +116,12 @@ class CommentViews:
             json_list = []
             for comment in comments:
                 json_dict = {}
+                userid = comment.user_id
                 json_dict["content"] = comment.body
+                json_dict["userid"] = userid
+                user = User.objects.get(id = userid)
+                json_dict["username"] = user.username
+                json_dict["created"] = comment.created
                 json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:

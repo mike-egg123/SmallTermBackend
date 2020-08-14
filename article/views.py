@@ -231,6 +231,7 @@ class Article:
             articlepost.body = content
             articlepost.last_updater = userid
             articlepost.permission = permission
+            articlepost.is_updating = 0
             articlepost.save()
             return JsonResponse({
                 "status": 0,
@@ -268,6 +269,11 @@ class Article:
             articleid = data.get('articleid')
             userid = data.get('userid')
             article = ArticlePost.objects.get(id = articleid)
+            if article.is_updating == 1:
+                return JsonResponse({
+                    "status":"2",
+                    "message":"该文档正在修改，请稍等"
+                })
             title = article.title
             content = article.body
             author = article.author
@@ -279,6 +285,8 @@ class Article:
             updatingcode = article.is_updating
             watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
             watchingrecord.save()
+            article.is_updating = 1
+            article.save()
             return JsonResponse({
                 "status":0,
                 "title":title,
