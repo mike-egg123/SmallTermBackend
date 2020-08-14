@@ -22,7 +22,6 @@ from article.views import article_list
 from userprofile.views import Users, Personality
 from article.views import Article
 from comment.views import CommentViews
-from workplace.views import Workplace
 
 urlpatterns = [
     # home

@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class WorkplaceConfig(AppConfig):
+class WorkbenchConfig(AppConfig):
     name = 'workplace'
