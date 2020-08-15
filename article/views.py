@@ -269,11 +269,6 @@ class Article:
             articleid = data.get('articleid')
             userid = data.get('userid')
             article = ArticlePost.objects.get(id = articleid)
-            if article.is_updating == 1:
-                return JsonResponse({
-                    "status":"2",
-                    "message":"该文档正在修改，请稍等"
-                })
             title = article.title
             content = article.body
             author = article.author
@@ -283,6 +278,19 @@ class Article:
             is_in_garbage = article.is_in_garbage
             permission = article.permission
             updatingcode = article.is_updating
+            if article.is_updating == 1:
+                return JsonResponse({
+                    "status":"2",
+                    "message":"该文档正在修改，请稍等",
+                    "title": title,
+                    "author": author.username,
+                    "created_time": created,
+                    "last_updater": last_updater,
+                    "updated_time": update_time,
+                    "is_in_garbage": is_in_garbage,
+                    "permission": permission,
+                    "updatingcode": updatingcode
+                })
             watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
             watchingrecord.save()
             article.is_updating = 1
@@ -613,6 +621,43 @@ class Article:
                 "status": 1,
                 "message": "error method"
             })
+
+    @staticmethod
+    def releaselock(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            article = ArticlePost.objects.get(id = articleid)
+            article.is_updating = 0
+            article.save()
+            return JsonResponse({
+                "status":0,
+                "message":"解锁成功"
+            })
+        else:
+            return JsonResponse({
+                "status":1,
+                "message":"error method"
+            })
+
+    @staticmethod
+    def addlock(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            article = ArticlePost.objects.get(id=articleid)
+            article.is_updating = 1
+            article.save()
+            return JsonResponse({
+                "status": 0,
+                "message": "加锁成功"
+            })
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
+            })
+
 
 
 

@@ -65,8 +65,11 @@ urlpatterns = [
     path('apis/article/getalllikesYi', Article.get_all_likesYi),  # 获取所有收藏（异步）
     path('apis/article/getallcreationsYi', Article.get_all_creationsYi),  # 获取所有创建的文档（异步）
     path('apis/article/getallcreationsingarbageYi', Article.get_all_creations_in_garbageYi),  # 获取回收站中的所有文档（异步）
+    path('apis/article/addlock', Article.addlock),  # 给文档加锁
+    path('apis/article/releaselock', Article.releaselock),  # 给文档解锁
     path('apis/comment/post', CommentViews.post),  # 发表评论
     path('apis/comment/getbyarticleid', CommentViews.get_comments_by_articleid),  # 获得对应文档的评论
+    path('apis/search/users', Personality.searchuser),  # 全局搜索用户
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

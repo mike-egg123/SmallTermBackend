@@ -271,4 +271,27 @@ def getallarticles(request):
                     article_list.append(article_dict)
         return JsonResponse(article_list, safe = False)
 
+# 查询团队信息
+def getteaminfo(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        teamid = data.get('teamid')
+        team = Team.objects.get(tid = teamid)
+        if team:
+            return JsonResponse({
+                "teamid":teamid,
+                "teamname":team.tname,
+                "creator":team.tcreateuser.username,
+                "tnum":team.tnum,
+                "createtime":team.tcreatetime
+            })
+        else:
+            return JsonResponse({
+                "message":"查询的团队不存在"
+            })
+    else:
+        return JsonResponse({
+            "message":"error method"
+        })
+
 

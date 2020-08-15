@@ -4,9 +4,9 @@
     <list default="true" id="0fc88c91-8301-49f9-a174-90518cddf1a0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/article/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/article/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/comment/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/comment/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dusai_blog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dusai_blog/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/userprofile/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/userprofile/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workplace/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/workplace/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workplace/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/workplace/views.py" afterDir="false" />
     </list>
@@ -187,7 +187,10 @@
       <workItem from="1597401827036" duration="7708000" />
       <workItem from="1597461919697" duration="1119000" />
       <workItem from="1597463059555" duration="2001000" />
-      <workItem from="1597477662523" duration="3683000" />
+      <workItem from="1597477662523" duration="5861000" />
+      <workItem from="1597484191599" duration="22000" />
+      <workItem from="1597486426301" duration="4565000" />
+      <workItem from="1597504007897" duration="1245000" />
     </task>
     <servers />
   </component>
@@ -211,22 +214,22 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="284" y="99" key="FileChooserDialogImpl/0.0.1280.689@0.0.1280.689" timestamp="1597391662106" />
-    <state width="1237" height="122" key="GridCell.Tab.0.bottom" timestamp="1597480468422">
+    <state width="1237" height="122" key="GridCell.Tab.0.bottom" timestamp="1597505475230">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="122" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1597480468422" />
-    <state width="1237" height="122" key="GridCell.Tab.0.center" timestamp="1597480468422">
+    <state width="1237" height="122" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1597505475230" />
+    <state width="1237" height="122" key="GridCell.Tab.0.center" timestamp="1597505475229">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="122" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1597480468422" />
-    <state width="1237" height="122" key="GridCell.Tab.0.left" timestamp="1597480468421">
+    <state width="1237" height="122" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1597505475229" />
+    <state width="1237" height="122" key="GridCell.Tab.0.left" timestamp="1597505475229">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="122" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1597480468421" />
-    <state width="1237" height="122" key="GridCell.Tab.0.right" timestamp="1597480468422">
+    <state width="1237" height="122" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1597505475229" />
+    <state width="1237" height="122" key="GridCell.Tab.0.right" timestamp="1597505475230">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="122" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1597480468422" />
+    <state width="1237" height="122" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1597505475230" />
     <state x="144" y="0" key="SettingsEditor" timestamp="1597235839751">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
@@ -250,6 +253,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/dusai_blog$manage.coverage" NAME="manage Coverage Results" MODIFIED="1597221862051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/SmallTermBackend$manage.coverage" NAME="manage Coverage Results" MODIFIED="1597480468401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SmallTermBackend$manage.coverage" NAME="manage Coverage Results" MODIFIED="1597504457873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

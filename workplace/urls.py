@@ -12,6 +12,7 @@ urlpatterns = [
     path('disband', views.disband),  # 解散团队
     path('outteam', views.outteam),  # 踢人
     path('getteammember', views.getteammember), #查询团队成员
-    path('getallarticles', views.getallarticles)  # 查询团队文档
+    path('getallarticles', views.getallarticles), # 查询团队文档,
+    path('getteaminfo', views.getteaminfo) #查询团队信息
 
 ]

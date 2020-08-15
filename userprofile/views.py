@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import re
 
 from PIL import Image, ImageDraw, ImageFont
 from django.contrib.auth.models import User
@@ -365,7 +366,6 @@ class Personality:
                 avatar = "http://182.92.239.145" + str(userprofile.avatar.url)
             else:
                 avatar = ""
-
             username = user.username
             email = user.email
             phone = userprofile.phone
@@ -382,6 +382,29 @@ class Personality:
             return JsonResponse({
                 "status":1,
                 "message":"请使用post请求"
+            })
+
+    # 全局搜索用户
+    @staticmethod
+    def searchuser(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            keyword = data.get('keyword')
+            users = User.objects.all()
+            json_list = []
+            for user in users:
+                username = user.username
+                if re.search(keyword, username):
+                    json_dict = {}
+                    json_dict['userid'] = user.id
+                    json_dict['username'] = username
+                    profile = Profile.objects.get(user = user)
+                    json_dict['avatar'] = "http://182.92.239.145" + str(profile.avatar.url)
+                    json_list.append(json_dict)
+            return JsonResponse(json_list, safe = False)
+        else:
+            return JsonResponse({
+                "message":"error method"
             })
 
 
