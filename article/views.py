@@ -200,12 +200,12 @@ class Article:
     @staticmethod
     def article_create(request):
         if request.method == 'POST':
-            data = json.loads(request.body)
-            title = data.get('title')
-            content = data.get('content')
-            userid = data.get('userid')
-            permission = data.get('permission')
-            articlepost = ArticlePost.objects.create(author_id = userid, title = title, body = content, last_updater = userid, permission = permission)
+            if not request.user.is_authenticated:
+                return JsonResponse({
+                    "message":"请先登录"
+                })
+            userid = request.user.id
+            articlepost = ArticlePost.objects.create(author_id = userid, title = "title", body = "content", last_updater = userid, permission = 0, is_updating = 1)
             articlepost.save()
             return JsonResponse({
                 "status":0,
@@ -399,6 +399,8 @@ class Article:
                     json_dict = {}
                     json_dict["articleid"] = articleid
                     json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
                     if Like.objects.filter(liker_id = userid, liked_id = articleid):
                         json_dict["islike"] = True
                     else:
@@ -409,6 +411,37 @@ class Article:
             return JsonResponse({
                 "status":1,
                 "message":"error method"
+            })
+     # 获取最近浏览（异步）
+    @staticmethod
+    def get_recent_watchYi(request):
+        if request.method == 'POST':
+            if not request.user.is_authenticated:
+                return JsonResponse({
+                    "message":"请先登录"
+                })
+            userid = request.user.id
+            watchingrecords = WatchingRecord.objects.filter(user_id=userid)
+            json_list = []
+            for watchingrecord in watchingrecords:
+                articleid = watchingrecord.article_id
+                article = ArticlePost.objects.get(id=articleid)
+                if article.is_in_garbage == False:
+                    json_dict = {}
+                    json_dict["articleid"] = articleid
+                    json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
+                    if Like.objects.filter(liker_id=userid, liked_id=articleid):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_list.append(json_dict)
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
             })
     # 获取所有收藏
     @staticmethod
@@ -425,6 +458,8 @@ class Article:
                     json_dict = {}
                     json_dict["articleid"] = articleid
                     json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
                     if Like.objects.filter(liker_id = userid, liked_id = articleid):
                         json_dict["islike"] = True
                     else:
@@ -435,6 +470,38 @@ class Article:
             return JsonResponse({
                 "status":1,
                 "message":"error method"
+            })
+
+    # 获取所有收藏（异步）
+    @staticmethod
+    def get_all_likesYi(request):
+        if request.method == 'POST':
+            if not request.user.is_authenticated:
+                return JsonResponse({
+                    "message":"请先登录"
+                })
+            userid = request.user.id
+            likes = Like.objects.filter(liker_id=userid)
+            json_list = []
+            for like in likes:
+                articleid = like.liked_id
+                article = ArticlePost.objects.get(id=articleid)
+                if article.is_in_garbage == False:
+                    json_dict = {}
+                    json_dict["articleid"] = articleid
+                    json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
+                    if Like.objects.filter(liker_id=userid, liked_id=articleid):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_list.append(json_dict)
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
             })
     # 获取所有创建的文档
     @staticmethod
@@ -449,6 +516,8 @@ class Article:
                     json_dict = {}
                     json_dict["articleid"] = article.id
                     json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
                     if Like.objects.filter(liker_id = userid, liked_id = article.id):
                         json_dict["islike"] = True
                     else:
@@ -459,6 +528,35 @@ class Article:
             return JsonResponse({
                 "status":1,
                 "message":"error method"
+            })
+    # 获取所有创建的文档（异步）
+    @staticmethod
+    def get_all_creationsYi(request):
+        if request.method == 'POST':
+            if not request.user.is_authenticated:
+                return JsonResponse({
+                    "message":"请先登录"
+                })
+            userid = request.user.id
+            articles = ArticlePost.objects.filter(author_id=userid)
+            json_list = []
+            for article in articles:
+                if article.is_in_garbage == False:
+                    json_dict = {}
+                    json_dict["articleid"] = article.id
+                    json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
+                    if Like.objects.filter(liker_id=userid, liked_id=article.id):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_list.append(json_dict)
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
             })
     # 获取所有回收站里的文档
     @staticmethod
@@ -473,6 +571,37 @@ class Article:
                 if article.is_in_garbage:
                     json_dict["articleid"] = article.id
                     json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
+                    if Like.objects.filter(liker_id=userid, liked_id=article.id):
+                        json_dict["islike"] = True
+                    else:
+                        json_dict["islike"] = False
+                    json_list.append(json_dict)
+            return JsonResponse(json_list, safe=False)
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
+            })
+    # 获取所有回收站里的文档（异步）
+    @staticmethod
+    def get_all_creations_in_garbageYi(request):
+        if request.method == 'POST':
+            if not request.user.is_authenticated:
+                return JsonResponse({
+                    "message":"请先登录"
+                })
+            userid = request.user.id
+            articles = ArticlePost.objects.filter(author_id=userid)
+            json_list = []
+            for article in articles:
+                json_dict = {}
+                if article.is_in_garbage:
+                    json_dict["articleid"] = article.id
+                    json_dict["title"] = article.title
+                    json_dict["author"] = article.author.username
+                    json_dict["created"] = article.created
                     if Like.objects.filter(liker_id=userid, liked_id=article.id):
                         json_dict["islike"] = True
                     else:

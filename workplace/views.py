@@ -4,7 +4,7 @@ from django.shortcuts import render
 import json
 # Create your views here.
 from workplace.models import *
-from article.models import ArticlePost
+from article.models import ArticlePost, Like
 from userprofile.models import Profile
 
 # 修改处：
@@ -33,12 +33,60 @@ def myjointeam(request):
             "status": 0,
             "message": "error method"
         })
+def myjointeamYi(request):
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                "status": 1,
+                "message": "请先登录"
+            })
+        uid = request.user.id
+        usr = User.objects.get(id=uid)
+        res = usr.user.all()
+        reslist = []
+        for tm in res:
+            if tm.tcreateuser != usr:
+                temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
+                       'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
+                        }
+                reslist.append(temp)
+        return JsonResponse(reslist, safe = False)
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
 
 # 创建的团队
 def mycreateteam(request):
     if request.method == "POST":
         data = json.loads(request.body)
         uid = data.get("userid")
+        usr = User.objects.get(id=uid)
+        res = usr.user.all()
+        reslist = []
+        for tm in res:
+            if tm.tcreateuser == usr:
+                temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
+                       'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
+                        }
+                reslist.append(temp)
+        return JsonResponse(reslist, safe = False)
+
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
+# 创建的团队（异步）
+def mycreateteamYi(request):
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                "message":"请先登录"
+            })
+        uid = request.user.id
         usr = User.objects.get(id=uid)
         res = usr.user.all()
         reslist = []
@@ -197,8 +245,13 @@ def getteammember(request):
 # 查找该团队中所有权限为1或2的文档
 def getallarticles(request):
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                "message":"请先登录"
+            })
         data = json.loads(request.body)
         teamid = data.get('teamid')
+        user = request.user
         team = Team.objects.get(tid=teamid)
         members = team.tmem.all()
         article_list = []
@@ -210,6 +263,11 @@ def getallarticles(request):
                     article_dict['articleid'] = article.id
                     article_dict['title'] = article.title
                     article_dict['author'] = member.username
+                    article_dict['created'] = article.created
+                    if Like.objects.filter(liker = user, liked = article).exists():
+                        article_dict['islike'] = True
+                    else:
+                        article_dict['islike'] = False
                     article_list.append(article_dict)
         return JsonResponse(article_list, safe = False)
 

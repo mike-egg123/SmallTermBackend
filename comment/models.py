@@ -21,7 +21,7 @@ class Comment(models.Model):
     # mptt树形结构
 
     class Meta:
-        ordering = ['created']
+        ordering = ['-created']
 
 
     def __str__(self):

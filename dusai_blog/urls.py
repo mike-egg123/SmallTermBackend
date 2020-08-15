@@ -61,6 +61,10 @@ urlpatterns = [
     path('apis/article/getalllikes', Article.get_all_likes),  # 获取所有收藏
     path('apis/article/getallcreations', Article.get_all_creations),  # 获取所有创建的文档
     path('apis/article/getallcreationsingarbage', Article.get_all_creations_in_garbage),  # 获取回收站中的所有文档
+    path('apis/article/getrecentwatchYi', Article.get_recent_watchYi),  # 获取最近浏览（异步）
+    path('apis/article/getalllikesYi', Article.get_all_likesYi),  # 获取所有收藏（异步）
+    path('apis/article/getallcreationsYi', Article.get_all_creationsYi),  # 获取所有创建的文档（异步）
+    path('apis/article/getallcreationsingarbageYi', Article.get_all_creations_in_garbageYi),  # 获取回收站中的所有文档（异步）
     path('apis/comment/post', CommentViews.post),  # 发表评论
     path('apis/comment/getbyarticleid', CommentViews.get_comments_by_articleid),  # 获得对应文档的评论
 ]
