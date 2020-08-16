@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from article.models import *
+from userprofile.models import *
 # Create your models here.
 
 
@@ -16,6 +18,27 @@ class Team(models.Model):
 
     def __str__(self):
         return 'Team {}'.format(self.tname)
+
+#权限模型类
+class Permissions(models.Model):
+    pid = models.AutoField(primary_key=True) #主键
+    state = models.IntegerField(blank=True) #权限值 0为私有 1为团队可见 2为团队可见可改
+    uid = models.ForeignKey(User, on_delete=models.CASCADE) #用户外键
+    did = models.ForeignKey(ArticlePost, on_delete=models.CASCADE) #文档外键
+    tid = models.IntegerField(blank=True) #团队主键
+    #团队外键没有设置外键，在私有时该值为-1，不对应任何团队
+
+    def __str__(self):
+        return 'Permission {}--{}'.format(self.uid.username, self.did.title)
+
+#临时权限模型类
+class Prepermission(models.Model):
+    state = models.IntegerField(blank=True) #权限值 0为私有 1为团队可见 2为团队可见可改
+    did = models.ForeignKey(ArticlePost, on_delete=models.CASCADE) #文档外键
+    tid = models.IntegerField(blank=True) #团队主键
+
+    def __str__(self):
+        return '临时权限 {}--{}'.format(self.tid, self.did.title)
 
 
 

@@ -14,6 +14,7 @@ from django.db.models import Q
 from comment.models import Comment
 from comment.forms import CommentForm
 from .models import Like, WatchingRecord
+from workplace.models import *
 
 # Create your views here.
 # 这里别看！
@@ -207,6 +208,8 @@ class Article:
             userid = request.user.id
             articlepost = ArticlePost.objects.create(author_id = userid, title = "title", body = "content", last_updater = userid, permission = 0, is_updating = 1)
             articlepost.save()
+            p = Permissions.objects.create(state=0, uid_id=userid, did_id=articlepost.id, tid=-1)
+            p.save()
             return JsonResponse({
                 "status":0,
                 "articleid":articlepost.id
@@ -288,7 +291,6 @@ class Article:
                     "last_updater": last_updater,
                     "updated_time": update_time,
                     "is_in_garbage": is_in_garbage,
-                    "permission": permission,
                     "updatingcode": updatingcode
                 })
             watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
@@ -413,6 +415,11 @@ class Article:
                         json_dict["islike"] = True
                     else:
                         json_dict["islike"] = False
+                    authorid = article.author.id
+                    if authorid == userid:
+                        json_dict['state'] = 0
+                    else:
+                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
                     json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
@@ -444,6 +451,11 @@ class Article:
                         json_dict["islike"] = True
                     else:
                         json_dict["islike"] = False
+                    authorid = article.author.id
+                    if authorid == userid:
+                        json_dict['state'] = 0
+                    else:
+                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
                     json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
@@ -472,6 +484,11 @@ class Article:
                         json_dict["islike"] = True
                     else:
                         json_dict["islike"] = False
+                    authorid = article.author.id
+                    if authorid == userid:
+                        json_dict['state'] = 0
+                    else:
+                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
                     json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
@@ -504,6 +521,11 @@ class Article:
                         json_dict["islike"] = True
                     else:
                         json_dict["islike"] = False
+                    authorid = article.author.id
+                    if authorid == userid:
+                        json_dict['state'] = 0
+                    else:
+                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
                     json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:

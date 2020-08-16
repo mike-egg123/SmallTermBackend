@@ -104,6 +104,26 @@ def mycreateteamYi(request):
             "message": "error method"
         })
 
+# 拥有的所有团队
+def myallteam(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        uid = data.get("userid")
+        usr = User.objects.get(id=uid)
+        res = usr.user.all()
+        reslist = []
+        for tm in res:
+            temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
+                   'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
+                    }
+            reslist.append(temp)
+        return JsonResponse(reslist, safe = False)
+
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
 
 #创建团队
 def createteam(request):
@@ -145,6 +165,8 @@ def disband(request):
             res = Team.objects.filter(tid=teamid).first()
             res.tmem.clear()
             res.delete()
+            Permissions.objects.filter(tid=teamid).delete()
+            Prepermission.objects.filter(tid=teamid).delete()
             return JsonResponse({
                 "status": 0,
                 "message": "Disband team success"
@@ -168,6 +190,7 @@ def exitteam(request):
             res.tmem.remove(user)
             res.tnum = res.tnum - 1
             res.save()
+            Permissions.objects.filter(tid=teamid, uid=user).delete()
             return JsonResponse({
                 "status": 0,
                 "message": "Exit team success"
@@ -191,6 +214,7 @@ def outteam(request):
             res.tmem.remove(user)
             res.tnum = res.tnum - 1
             res.save()
+            Permissions.objects.filter(tid=teamid, uid=user).delete()
             return JsonResponse({
                 "status": 0,
                 "message": "Out team success"
@@ -213,6 +237,15 @@ def jointeam(request):
         tm.tmem.add(usr)
         tm.tnum = tm.tnum+1
         tm.save()
+        if tm.tnum == 2: #团队的第一个加入成员，获得预设的文档权限
+            ppmslist = Prepermission.objects.filter(tid=teamid).all()
+            for ppms in ppmslist:
+                Permissions.objects.create(state=ppms.state, tid=teamid, uid=usr, did=ppms.did)
+            Prepermission.objects.filter(tid=teamid).delete()
+        else: #复制团队其他成员的文档权限
+            pmsist = Permissions.objects.filter(tid=teamid).all()
+            for pms in pmsist:
+                Permissions.objects.create(state=pms.state, tid=teamid, uid=usr, did=pms.did)
         return JsonResponse({
             "status": 0,
             "message": "加入成功"
@@ -238,7 +271,10 @@ def getteammember(request):
             profile = Profile.objects.get(user = member)
             mem_dict["userid"] = member.id
             mem_dict["username"] = member.username
-            mem_dict["avatar"] = "http://182.92.239.145" + str(profile.avatar.url)
+            if profile.avatar:
+                mem_dict["avatar"] = "http://182.92.239.145" + str(profile.avatar.url)
+            else:
+                mem_dict['avatar'] = " "
             mem_list.append(mem_dict)
         return JsonResponse(mem_list, safe = False)
 
@@ -292,6 +328,171 @@ def getteaminfo(request):
     else:
         return JsonResponse({
             "message":"error method"
+        })
+
+#设置（修改）文档权限
+def setpermission(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        state = data.get("state") ##权限值 0为私有 1为团队可见 2为团队可见可改
+        uid = data.get("userid") #用户id
+        did = data.get("articleid") #文档id
+        teamlist = []
+        teamlist = data.get("teamlist") #如果 state>=1 需要提交team的id列表
+        #如果设置的团队为空，需要先将权限暂存，待第一个用户加入，修改权限表，删除暂存
+        Permissions.objects.filter(did_id=did).delete()
+        Permissions.objects.create(state=0, uid_id=uid, did_id=did, tid=-1)
+        if state == 1:
+            for tid in teamlist:
+                tm = Team.objects.get(tid=tid)
+                if tm.tnum == 1:
+                    Prepermission.objects.create(state=1, did_id=did, tid=tid)
+                    continue
+                for usr in tm.tmem.all():
+                    if usr.id == uid:
+                        continue
+                    Permissions.objects.create(state=1, uid=usr, did_id=did, tid=tid)
+
+        if state == 2:
+            for tid in teamlist:
+                tm = Team.objects.get(tid=tid)
+                if tm.tnum == 1:
+                    Prepermission.objects.create(state=2, did_id=did, tid=tid)
+                    continue
+                for usr in tm.tmem.all():
+                    if usr.id == uid:
+                        continue
+                    Permissions.objects.create(state=2, uid=usr, did_id=did, tid=tid)
+
+        return JsonResponse({
+            "status": 1,
+            "message": "设置成功"
+        })
+
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
+#查询团队文档
+def getteamdoc(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        tid= data.get("teamid")
+        uid = data.get("userid")
+        doclist = []
+        pmsist = Permissions.objects.filter(tid=tid).all()
+        for pms in pmsist:
+            doc = pms.did_id
+            if doc not in doclist:
+                doclist.append(doc)
+        reslist = []
+        for docid in doclist:
+            state = 0
+            p = Permissions.objects.filter(did=docid, uid=uid, tid=-1)
+            if len(p) == 1:
+                state = 0
+            else:
+                state = Permissions.objects.get(did=docid, uid=uid, tid=tid).state
+            article = ArticlePost.objects.get(id = docid)
+            if article.is_in_garbage == False:
+                res = {'articleid':docid,
+                    'title':ArticlePost.objects.get(id=docid).title,
+                       'author':ArticlePost.objects.get(id=docid).author.username,
+                       'state':state}
+                reslist.append(res)
+        return JsonResponse(reslist, safe=False)
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
+#查找文档（全局搜索的文档部分）
+def searchdoc(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        uid = data.get("userid")
+        keyword = data.get("keyword")
+        doclist = []
+        pmsist = Permissions.objects.filter(uid=uid).all()
+        for pms in pmsist:
+            doc = pms.did_id
+            if doc not in doclist:
+                doclist.append(doc)
+        reslist = []
+        for docid in doclist:
+            doc = ArticlePost.objects.get(id=docid)
+            title = doc.title
+            if title.find(keyword) != -1 and doc.is_in_garbage==False:
+                res = {'articleid': docid,
+                       'title': title,
+                       'author': ArticlePost.objects.get(id=docid).author.username,
+                       'state': Permissions.objects.filter(did=docid, uid=uid).first().state
+                        }
+                reslist.append(res)
+        return JsonResponse(reslist, safe=False)
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
+#查找团队（全局搜索的团队部分）
+def searchteam(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        uid = data.get("userid")
+        keyword = data.get("keyword")
+        usr = User.objects.get(id=uid)
+        teamlist = []
+        teamlist = Team.objects.filter(tname__icontains=keyword).all()
+        reslist = []
+        for tm in teamlist:
+            state = 0 #状态值：自己创建为0，加入的为1，未加入的为2
+            if tm.tcreateuser == usr:
+                state = 0
+            elif usr in tm.tmem.all():
+                state = 1
+            else:
+                state = 2
+            res = {'teamid': tm.tid,
+                   'teamname': tm.tname,
+                   'teamcreator': tm.tcreateuser.username,
+                   'state': state
+                    }
+            reslist.append(res)
+        return JsonResponse(reslist, safe=False)
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
+# 查询权限
+def getpermission(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        uid = data.get("userid")
+        aid = data.get("articleid")
+        state = 0
+        article = ArticlePost.objects.get(id=aid)
+        if article.author.id == uid :
+            return JsonResponse({
+                "state": state
+            })
+        if len(Permissions.objects.filter(uid_id=uid, did_id=aid).all()) >= 1:
+            state = Permissions.objects.filter(uid_id=uid, did_id=aid).first().state
+        else:
+            state = 500
+        return JsonResponse({
+            "state": state
+        })
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
         })
 
 

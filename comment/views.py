@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from article.models import ArticlePost
 from .forms import CommentForm
 from .models import Comment
+from userprofile.models import Profile
 from django.core import serializers
 
 # Create your views here.
@@ -121,6 +122,11 @@ class CommentViews:
                 json_dict["userid"] = userid
                 user = User.objects.get(id = userid)
                 json_dict["username"] = user.username
+                profile = Profile.objects.get(user = user)
+                if profile.avatar:
+                    json_dict['avatar'] = "http://182.92.239.145" + str(profile.avatar.url)
+                else:
+                    json_dict['avatar'] = " "
                 json_dict["created"] = comment.created
                 json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
