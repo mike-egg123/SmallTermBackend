@@ -376,7 +376,8 @@ class Personality:
                 "email":email,
                 "phone":phone,
                 "bio":bio,
-                "avatar":avatar
+                "avatar":avatar,
+                "userid":user_id
             })
         else:
             return JsonResponse({
@@ -396,7 +397,7 @@ class Personality:
                 username = user.username
                 if re.search(keyword, username):
                     json_dict = {}
-                    json_dict['userid'] = user.id
+                    json_dict['userid'] = str(user.id)
                     json_dict['username'] = username
                     profile = Profile.objects.get(user = user)
                     json_dict['avatar'] = "http://182.92.239.145" + str(profile.avatar.url)

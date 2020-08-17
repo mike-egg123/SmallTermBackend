@@ -61,7 +61,7 @@ class WatchingRecord(models.Model):
     class Meta:
         ordering = ("-record_date",)
     def __str__(self):
-        return self.user + "于" + self.record_date + "修改了" + self.article
+        return self.user.username + "于" + str(self.record_date) + "修改了" + self.article.title
 
 
 

@@ -205,8 +205,10 @@ class Article:
                 return JsonResponse({
                     "message":"请先登录"
                 })
+            data = json.loads(request.body)
+            content = data.get('content')
             userid = request.user.id
-            articlepost = ArticlePost.objects.create(author_id = userid, title = "title", body = "content", last_updater = userid, permission = 0, is_updating = 1)
+            articlepost = ArticlePost.objects.create(author_id = userid, title = "title", body = content, last_updater = userid, permission = 0, is_updating = 1)
             articlepost.save()
             p = Permissions.objects.create(state=0, uid_id=userid, did_id=articlepost.id, tid=-1)
             p.save()
@@ -293,8 +295,9 @@ class Article:
                     "is_in_garbage": is_in_garbage,
                     "updatingcode": updatingcode
                 })
-            watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
-            watchingrecord.save()
+            if not WatchingRecord.objects.filter(user_id = userid, article_id = articleid):
+                watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
+                watchingrecord.save()
             article.is_updating = 1
             article.save()
             return JsonResponse({
@@ -402,6 +405,7 @@ class Article:
             userid = data.get('userid')
             watchingrecords = WatchingRecord.objects.filter(user_id = userid)
             json_list = []
+            i = 0
             for watchingrecord in watchingrecords:
                 articleid = watchingrecord.article_id
                 article = ArticlePost.objects.get(id=articleid)
@@ -419,8 +423,14 @@ class Article:
                     if authorid == userid:
                         json_dict['state'] = 0
                     else:
-                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
+                        if Permissions.objects.filter(did_id=articleid, uid_id=userid).first():
+                            json_dict['state'] = Permissions.objects.filter(did_id=articleid, uid_id=userid).first().state
+                        else:
+                            json_dict['state'] = '999'
                     json_list.append(json_dict)
+                i += 1
+                if i == 8:
+                    break
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -438,6 +448,7 @@ class Article:
             userid = request.user.id
             watchingrecords = WatchingRecord.objects.filter(user_id=userid)
             json_list = []
+            i = 0
             for watchingrecord in watchingrecords:
                 articleid = watchingrecord.article_id
                 article = ArticlePost.objects.get(id=articleid)
@@ -455,8 +466,14 @@ class Article:
                     if authorid == userid:
                         json_dict['state'] = 0
                     else:
-                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
+                        if Permissions.objects.filter(did_id=articleid, uid_id=userid).first():
+                            json_dict['state'] = Permissions.objects.filter(did_id=articleid, uid_id=userid).first().state
+                        else:
+                            json_dict['state'] = '999'
                     json_list.append(json_dict)
+                i += 1
+                if i == 8:
+                    break
             return JsonResponse(json_list, safe=False)
         else:
             return JsonResponse({
@@ -488,7 +505,10 @@ class Article:
                     if authorid == userid:
                         json_dict['state'] = 0
                     else:
-                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
+                        if Permissions.objects.filter(did_id=articleid, uid_id=userid).first():
+                            json_dict['state'] = Permissions.objects.filter(did_id=articleid, uid_id=userid).first().state
+                        else:
+                            json_dict['state'] = '999'
                     json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:
@@ -525,7 +545,10 @@ class Article:
                     if authorid == userid:
                         json_dict['state'] = 0
                     else:
-                        json_dict['state'] = Permissions.objects.filter(did=articleid, uid=userid).first().state
+                        if Permissions.objects.filter(did_id=articleid, uid_id=userid).first():
+                            json_dict['state'] = Permissions.objects.filter(did_id=articleid, uid_id=userid).first().state
+                        else:
+                            json_dict['state'] = '999'
                     json_list.append(json_dict)
             return JsonResponse(json_list, safe=False)
         else:

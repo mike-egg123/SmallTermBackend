@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # allauth 启动必须项
     'django.contrib.sites',
     'workplace',
+    "message",
 
     'allauth',
     'allauth.account',

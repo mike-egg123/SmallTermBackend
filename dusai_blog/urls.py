@@ -70,6 +70,7 @@ urlpatterns = [
     path('apis/comment/post', CommentViews.post),  # 发表评论
     path('apis/comment/getbyarticleid', CommentViews.get_comments_by_articleid),  # 获得对应文档的评论
     path('apis/search/users', Personality.searchuser),  # 全局搜索用户
+    path('apis/message/', include("message.urls"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

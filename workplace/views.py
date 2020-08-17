@@ -187,10 +187,14 @@ def exitteam(request):
         if teamid is not None:
             res = Team.objects.filter(tid=teamid).first()
             user = User.objects.filter(id=uid).first()
+            if res.tnum == 2:
+                ppmslist = Permissions.objects.filter(tid=teamid, uid=user).all()
+                for ppms in ppmslist:
+                    Prepermission.objects.create(state=ppms.state, tid=teamid, did=ppms.did)
+            Permissions.objects.filter(tid=teamid, uid=user).delete()
             res.tmem.remove(user)
             res.tnum = res.tnum - 1
             res.save()
-            Permissions.objects.filter(tid=teamid, uid=user).delete()
             return JsonResponse({
                 "status": 0,
                 "message": "Exit team success"
@@ -211,10 +215,14 @@ def outteam(request):
         if teamid is not None:
             res = Team.objects.filter(tid=teamid).first()
             user = User.objects.filter(id=userid).first()
+            if res.tnum == 2:
+                ppmslist = Permissions.objects.filter(tid=teamid, uid=user).all()
+                for ppms in ppmslist:
+                    Prepermission.objects.create(state=ppms.state, tid=teamid, did=ppms.did)
+            Permissions.objects.filter(tid=teamid, uid=user).delete()
             res.tmem.remove(user)
             res.tnum = res.tnum - 1
             res.save()
-            Permissions.objects.filter(tid=teamid, uid=user).delete()
             return JsonResponse({
                 "status": 0,
                 "message": "Out team success"
