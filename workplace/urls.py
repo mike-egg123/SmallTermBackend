@@ -20,4 +20,5 @@ urlpatterns = [
     path('searchdoc', views.searchdoc),  # 查找文档（全局搜索的文档部分）
     path('searchteam', views.searchteam),  # 查找文档（全局搜索的文档部分）
     path('getpermission', views.getpermission), # 查询权限
+    path('getpermissionsetting', views.getpermissionsetting),  # 查询权限设置
 ]

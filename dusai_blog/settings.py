@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'workplace',
     "message",
+    'chat',
 
     'allauth',
     'allauth.account',

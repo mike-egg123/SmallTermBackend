@@ -20,6 +20,7 @@ urlpatterns = [
     path('solveteammessage', views.solveteammessage),  #团队消息通知处理(已读/忽略)
     path('solvecommentmessage', views.solvecommentmessage),  #评论消息通知处理
 
-    path('getmessage', views.getmessage)  # 接收消息
+    path('getteammessage', views.getteammessage),  # 接收团队消息通知
+    path('getcommentmessage', views.getcommentmessage)  # 接收评论消息通知
 
 ]

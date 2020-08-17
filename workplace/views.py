@@ -503,4 +503,42 @@ def getpermission(request):
             "message": "error method"
         })
 
+#查询权限设置
+def getpermissionsetting(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        uid = data.get("userid")
+        aid = data.get("articleid")
+        state = 0
+        teamlist = []
+        res = Permissions.objects.filter(did_id=aid).all()
+        if len(res) == 1:
+            state = 0
+            return JsonResponse({
+                "state": state,
+                "teamlist": teamlist
+            })
+        else:
+            for pms in res :
+                if pms.state == 0:
+                    continue
+                state = pms.state
+                break
+
+        for pms in res:
+            if pms.tid == -1:
+                continue
+            teamname = Team.objects.get(tid=pms.tid).tname
+            if teamname not in teamlist:
+                teamlist.append(teamname)
+        return JsonResponse({
+            "state": state,
+            "teamlist":teamlist
+        })
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
 

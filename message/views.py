@@ -280,8 +280,8 @@ def solvecommentmessage(request):
             "message": "error method"
         })
 
-#接收消息
-def getmessage(request):
+#接收团队消息通知
+def getteammessage(request):
     if request.method == "POST":
         data = json.loads(request.body)
         uid = data.get("userid")
@@ -299,6 +299,20 @@ def getmessage(request):
                 "time":res.time
             }
             msglist.append(record)
+        return JsonResponse(msglist, safe=False)
+
+    else:
+        return JsonResponse({
+            "status": 0,
+            "message": "error method"
+        })
+
+#接收评论消息通知
+def getcommentmessage(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        uid = data.get("userid")
+        msglist = []
         cres = Commentmessage.objects.filter(tuid_id=uid).all()
         for res in cres:
             record = {
