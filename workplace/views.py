@@ -110,13 +110,14 @@ def myallteam(request):
         data = json.loads(request.body)
         uid = data.get("userid")
         usr = User.objects.get(id=uid)
-        res = usr.user.all()
         reslist = []
-        for tm in res:
-            temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
-                   'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
-                    }
-            reslist.append(temp)
+        if usr.user:
+            res = usr.user.all()
+            for tm in res:
+                temp = {'teamname':tm.tname, 'creator':tm.tcreateuser.username, 'tnum':tm.tnum,
+                       'createtime':tm.tcreatetime.strftime('%Y-%m-%d %H:%I:%S'), 'teamid':tm.tid
+                        }
+                reslist.append(temp)
         return JsonResponse(reslist, safe = False)
 
     else:

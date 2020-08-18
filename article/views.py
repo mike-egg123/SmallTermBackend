@@ -208,7 +208,7 @@ class Article:
             data = json.loads(request.body)
             content = data.get('content')
             userid = request.user.id
-            articlepost = ArticlePost.objects.create(author_id = userid, title = "title", body = content, last_updater = userid, permission = 0, is_updating = 1)
+            articlepost = ArticlePost.objects.create(author_id = userid, title = "title", body = content, last_updater = userid, permission = 0, is_updating = 0)
             articlepost.save()
             p = Permissions.objects.create(state=0, uid_id=userid, did_id=articlepost.id, tid=-1)
             p.save()
@@ -232,6 +232,33 @@ class Article:
             content = data.get('content')
             permission = data.get('permission')
             articlepost = ArticlePost.objects.get(id = articleid)
+            articlepost.title = title
+            articlepost.body = content
+            articlepost.last_updater = userid
+            articlepost.permission = permission
+            articlepost.is_updating = 0
+            articlepost.save()
+            return JsonResponse({
+                "status": 0,
+                "articleid": articlepost.id
+            })
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
+            })
+
+    # 文档的修改（异步）
+    @staticmethod
+    def article_updateYi(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            userid = request.user.id
+            title = data.get('title')
+            content = data.get('content')
+            permission = data.get('permission')
+            articlepost = ArticlePost.objects.get(id=articleid)
             articlepost.title = title
             articlepost.body = content
             articlepost.last_updater = userid
@@ -283,9 +310,13 @@ class Article:
             is_in_garbage = article.is_in_garbage
             permission = article.permission
             updatingcode = article.is_updating
+            if Like.objects.filter(liker_id = userid, liked_id = articleid):
+                islike = True
+            else:
+                islike = False
             if article.is_updating == 1:
                 return JsonResponse({
-                    "status":"2",
+                    "status":2,
                     "message":"该文档正在修改，请稍等",
                     "title": title,
                     "author": author.username,
@@ -298,6 +329,11 @@ class Article:
                 })
             if not WatchingRecord.objects.filter(user_id = userid, article_id = articleid):
                 watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
+                watchingrecord.save()
+            else:
+                watchingrecord = WatchingRecord.objects.get(user_id = userid, article_id = articleid)
+                watchingrecord.delete()
+                watchingrecord = WatchingRecord.objects.create(user_id=userid, article_id=articleid)
                 watchingrecord.save()
             article.is_updating = 1
             article.save()
@@ -312,12 +348,63 @@ class Article:
                 "updated_time":update_time,
                 "is_in_garbage":is_in_garbage,
                 "permission":permission,
-                "updatingcode":updatingcode
+                "updatingcode":updatingcode,
+                "islike":islike,
+                "articleid":articleid
             })
         else:
             return JsonResponse({
                 "status":1,
                 "message":"error method"
+            })
+    # 文档查看（只读）
+    @staticmethod
+    def article_get_readonly(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            userid = data.get('userid')
+            article = ArticlePost.objects.get(id=articleid)
+            title = article.title
+            content = article.body
+            author = article.author
+            created = article.created
+            last_updater = User.objects.get(id=article.last_updater).username
+            update_time = article.updated
+            is_in_garbage = article.is_in_garbage
+            permission = article.permission
+            updatingcode = article.is_updating
+            if Like.objects.filter(liker_id=userid, liked_id=articleid):
+                islike = True
+            else:
+                islike = False
+            if not WatchingRecord.objects.filter(user_id=userid, article_id=articleid):
+                watchingrecord = WatchingRecord.objects.create(user_id=userid, article_id=articleid)
+                watchingrecord.save()
+            else:
+                watchingrecord = WatchingRecord.objects.get(user_id=userid, article_id=articleid)
+                watchingrecord.delete()
+                watchingrecord = WatchingRecord.objects.create(user_id=userid, article_id=articleid)
+                watchingrecord.save()
+            return JsonResponse({
+                "status": 0,
+                "title": title,
+                "content": content,
+                "author": author.username,
+                "authorid": author.id,
+                "created_time": created,
+                "last_updater": last_updater,
+                "updated_time": update_time,
+                "is_in_garbage": is_in_garbage,
+                "permission": permission,
+                "updatingcode": updatingcode,
+                "islike": islike,
+                "articleid":articleid
+            })
+        else:
+            return JsonResponse({
+                "status": 1,
+                "message": "error method"
             })
     # 文档删除，根据实际情况进行进入回收站或者彻底删除
     @staticmethod

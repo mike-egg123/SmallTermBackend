@@ -52,7 +52,9 @@ urlpatterns = [
     path('apis/personality/get', Personality.get_personality), # 得到用户信息
     path('apis/article/create', Article.article_create), # 文档的创建
     path('apis/article/update', Article.article_update),  # 文档的修改
+    path('apis/article/updateYi', Article.article_updateYi),  # 文档的修改（异步）
     path('apis/article/get', Article.article_get),  # 文档的查看
+    path('apis/article/getreadonly', Article.article_get_readonly),  # 文档的查看（只读）
     path('apis/article/delete', Article.article_remove),  # 文档的删除
     path('apis/article/recover', Article.article_recover),  # 文档的恢复（从回收站）
     path('apis/article/likeornot', Article.article_like),  # 文档的收藏
