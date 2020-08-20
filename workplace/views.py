@@ -185,14 +185,18 @@ def exitteam(request):
         data = json.loads(request.body)
         teamid = data.get("teamid")
         uid = data.get("userid")
+        tm = Team.objects.get(tid=teamid)
         if teamid is not None:
             res = Team.objects.filter(tid=teamid).first()
             user = User.objects.filter(id=uid).first()
             if res.tnum == 2:
-                ppmslist = Permissions.objects.filter(tid=teamid, uid=user).all()
+                ppmslist = Permissions.objects.filter(tid=teamid, uid=user).all()  #只保留团队创建者的权限设置
                 for ppms in ppmslist:
                     Prepermission.objects.create(state=ppms.state, tid=teamid, did=ppms.did)
-            Permissions.objects.filter(tid=teamid, uid=user).delete()
+            Permissions.objects.filter(tid=teamid, uid=user).delete() #别人给自己的文档权限
+            mydoc = ArticlePost.objects.filter(author=user).all()
+            for doc in mydoc:
+                Permissions.objects.filter(tid=teamid, did=doc.id).delete() #自己给别人的文档权限
             res.tmem.remove(user)
             res.tnum = res.tnum - 1
             res.save()
@@ -221,6 +225,9 @@ def outteam(request):
                 for ppms in ppmslist:
                     Prepermission.objects.create(state=ppms.state, tid=teamid, did=ppms.did)
             Permissions.objects.filter(tid=teamid, uid=user).delete()
+            mydoc = ArticlePost.objects.filter(author=user).all()
+            for doc in mydoc:
+                Permissions.objects.filter(tid=teamid, did=doc.id).delete()  # 自己给别人的文档权限
             res.tmem.remove(user)
             res.tnum = res.tnum - 1
             res.save()
@@ -403,13 +410,14 @@ def getteamdoc(request):
             if len(p) == 1:
                 state = 0
             else:
-                state = Permissions.objects.get(did=docid, uid=uid, tid=tid).state
+                state = Permissions.objects.filter(did=docid, uid=uid, tid=tid).first().state
             article = ArticlePost.objects.get(id = docid)
             if article.is_in_garbage == False:
                 res = {'articleid':docid,
                     'title':ArticlePost.objects.get(id=docid).title,
                        'author':ArticlePost.objects.get(id=docid).author.username,
-                       'state':state}
+                       'state':state,
+                       'created':ArticlePost.objects.get(id = docid).created}
                 reslist.append(res)
         return JsonResponse(reslist, safe=False)
     else:

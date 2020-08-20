@@ -69,6 +69,7 @@ urlpatterns = [
     path('apis/article/getallcreationsingarbageYi', Article.get_all_creations_in_garbageYi),  # 获取回收站中的所有文档（异步）
     path('apis/article/addlock', Article.addlock),  # 给文档加锁
     path('apis/article/releaselock', Article.releaselock),  # 给文档解锁
+    path('apis/article/islock', Article.isLock),  # 查询文档上锁情况
     path('apis/comment/post', CommentViews.post),  # 发表评论
     path('apis/comment/getbyarticleid', CommentViews.get_comments_by_articleid),  # 获得对应文档的评论
     path('apis/search/users', Personality.searchuser),  # 全局搜索用户

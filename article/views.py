@@ -325,7 +325,10 @@ class Article:
                     "last_updater": last_updater,
                     "updated_time": update_time,
                     "is_in_garbage": is_in_garbage,
-                    "updatingcode": updatingcode
+                    "updatingcode": updatingcode,
+                    "content":content,
+                    "articleid":articleid,
+                    "islike":islike
                 })
             if not WatchingRecord.objects.filter(user_id = userid, article_id = articleid):
                 watchingrecord = WatchingRecord.objects.create(user_id = userid, article_id = articleid)
@@ -791,6 +794,23 @@ class Article:
                 "status": 1,
                 "message": "error method"
             })
+
+    # 判断当前文档是否上锁
+    @staticmethod
+    def isLock(request):
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            articleid = data.get('articleid')
+            article = ArticlePost.objects.get(id = articleid)
+            isupdating = article.is_updating
+            return JsonResponse({
+                'isupdating':isupdating
+            })
+        else:
+            return JsonResponse({
+                'message':'error method'
+            })
+
 
 
 
